@@ -1,4 +1,0 @@
-The Implicit Wait in Selenium is used to tell the web driver to wait for a certain amount of time before it throws a "No Such Element Exception". Once we set the time, the web driver will wait for the element for that time before throwing an exception.
-
-We can declared an implicit wait with the time frame of 5 seconds. It means that if the element is not located on the web page within that time frame, it will throw an exception.
-
