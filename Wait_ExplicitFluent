@@ -1,0 +1,44 @@
+import java.time.Duration;
+import java.util.function.Function;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+
+
+public class Wait_ExplicitFluent {
+	public static void main(String[] args) throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver","/home/oye/eclipse-projects/chromedriver");
+		WebDriver driver = new ChromeDriver();
+        driver.get("https://rahulshettyacademy.com/seleniumPractise/#/");
+		driver.findElement(By.xpath("//div[@class='products']//div[1]//div[3]//button[1]")).click();
+		driver.findElement(By.xpath("//a[@class='cart-icon']//img[contains(@class,'')]")).click();
+		driver.findElement(By.xpath("//button[contains(text(),'PROCEED TO CHECKOUT')]")).click();
+		Thread.sleep(3000); 
+		driver.findElement(By.xpath("//input[@placeholder='Enter promo code']")).sendKeys("rahulshettyacademy");
+		driver.findElement(By.xpath("//button[@class='promoBtn']")).click();
+		
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				.withTimeout(Duration.ofSeconds(30))     //Total time to check condition
+				.pollingEvery(Duration.ofSeconds(5))     //Checking the element after every 2 seconds
+				.ignoring(NoSuchElementException.class); //Error to be thrown after 30 seconds
+		
+		WebElement foo = wait.until(new Function<WebDriver, WebElement>(){
+			public WebElement apply(WebDriver driver) {
+			return driver.findElement(By.cssSelector("span[class='promoInfo']"));
+			}
+			});
+		System.out.println(driver.findElement(By.cssSelector("span[class='promoInfo']")).getText());
+		}
+}
+
+/* The Fluent Wait in Selenium is used to define maximum time for the web driver to wait for a condition, as well as the frequency with which we want to check the condition before throwing an "ElementNotVisibleException" exception. It checks for the web element at regular intervals until the object is found or timeout happens.
+
+Frequency: Setting up a repeat cycle with the time frame to verify/check the condition at the regular interval of time
+
+Let's consider a scenario where an element is loaded at different intervals of time. The element might load within 10 seconds, 20 seconds or even more then that if we declare an explicit wait of 20 seconds. It will wait till the specified time before throwing an exception. In such scenarios, the fluent wait is the ideal wait to use as this will try to find the element at different frequency until it finds it or the final timer runs out.
+
+*/
