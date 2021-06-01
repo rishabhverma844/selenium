@@ -1,0 +1,35 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class Wait_ExplicitWebDriver {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		System.setProperty("webdriver.chrome.driver","/home/oye/eclipse-projects/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://rahulshettyacademy.com/seleniumPractise/#/");
+		
+		driver.findElement(By.xpath("//div[@class='products']//div[1]//div[3]//button[1]")).click();
+		driver.findElement(By.xpath("//a[@class='cart-icon']//img[contains(@class,'')]")).click();
+		driver.findElement(By.xpath("//button[contains(text(),'PROCEED TO CHECKOUT')]")).click();
+		Thread.sleep(3000); //Used this so that explicit wait can be explained
+		driver.findElement(By.xpath("//input[@placeholder='Enter promo code']")).sendKeys("rahulshettyacademy");
+		driver.findElement(By.xpath("//button[@class='promoBtn']")).click();
+		
+		// Explicit wait is applied on specific test only
+		WebDriverWait w = new WebDriverWait(driver,5);
+		w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='promoInfo']")));
+		
+		System.out.println(driver.findElement(By.xpath("//span[@class='promoInfo']")).getText());		
+	}
+}
+
+/* The Explicit Wait in Selenium is used to tell the Web Driver to wait for certain conditions (Expected Conditions) or maximum time exceeded before throwing "ElementNotVisibleException" exception. It is an intelligent kind of wait, but it can be applied only for specified elements. It gives better options than implicit wait as it waits for dynamically loaded Ajax elements.
+
+Once we declare explicit wait we have to use "ExpectedConditions" or we can configure how frequently we want to check the condition using Fluent Wait. These days while implementing we are using Thread.Sleep() generally it is not recommended to use
+
+In the below example, we are creating reference wait for "WebDriverWait" class and instantiating using "WebDriver" reference, and we are giving a maximum time frame of 5 seconds. 
+*/
