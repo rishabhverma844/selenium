@@ -1,0 +1,65 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class Frames {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver","/home/oye/eclipse-projects/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.hyrtutorials.com/p/frames-practice.html");
+		
+		//On Main Wepage
+		driver.findElement(By.xpath("//input[@class='frmTextBox']")).sendKeys("Rishabh main webpage"); //Text to enter on the main webpage
+		
+		//Inside Frame 1 
+		driver.switchTo().frame(driver.findElement(By.id("frm1"))); //To locate frame 1
+		Thread.sleep(3000);
+		Select courseDropDown = new Select(driver.findElement(By.xpath("//select[@id='course']"))); //To locate dropdown inside frame 1
+		courseDropDown.selectByVisibleText("Java"); //To select dropdown element inside frame 1
+		
+		//From Frame 1 to Main Webpage 
+		driver.switchTo().defaultContent(); //To go back to main webpage
+		
+		//From Main Webpage to Frame 2
+		driver.switchTo().frame(driver.findElement(By.id("frm2"))); //To locate frame 2
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//input[@id='englishchbx']")).click(); //To choose language inside frame 2
+		driver.findElement(By.xpath("//input[@id='hindichbx']")).click();
+		driver.findElement(By.xpath("//input[@id='email']")).sendKeys("rishabhverma844@gmail.com");
+		
+		//From Frame 2 to Main Webpage 
+		driver.switchTo().defaultContent(); //To go back to main webpage
+		
+		//From Main Webpage to Frame 3 
+		driver.switchTo().frame(driver.findElement(By.id("frm3")));
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//input[@class='frmTextBox']")).sendKeys("Inside Frame 3");
+		
+		//From Frame 3 to Nested Frame 3.2 (NESTED FRAMES - Frame inside Frame)
+		driver.switchTo().frame(driver.findElement(By.id("frm2"))); //To locate frame 3.2
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//input[@id='firstName']")).sendKeys("Rishabh"); //To enter first name inside frame 3.2 which is actually a part of frame 3
+		driver.findElement(By.xpath("//input[@id='lastName']")).sendKeys("Verma");
+		}
+}
+
+/*                                     DIFFERENECE BETWEEN FRAME AND IFRAME (INLINE FRAME)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+A frame is used to divide a page into multiple sections, | An iFrame is used to embed the content of the external websites into the web page, |
+with new content on each section.                        | in order to avoid cross-site scripting issues.                                     |
+                                                         |                                                                                    |
+ex : https://www.hyrtutorials.com/p/frames-practice.html | ex : https://www.w3schools.com/html/html_iframe.asp                                |
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+An iFrame is considered to be less secure than a frame, as iFrame allows developers to embed content from the third party websites. 
+Thus, an iframe requires a developer to trust the content which he has embedded in the iframe.
+
+Most of the web applications being developed today do not use frames to divide the page, 
+rather they use iframes to embed external content such as advertisements within the web page.
+
+Website to understand Frames --> https://www.browserstack.com/guide/handling-frames-in-selenium
+*/
