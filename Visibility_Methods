@@ -1,0 +1,33 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Visibility_Methods {
+
+	public static void main(String[] args) throws Exception {
+
+		System.setProperty("webdriver.chrome.driver","/home/oye/eclipse-projects/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.get("http://only-testing-blog.blogspot.com/2013/09/test.html");
+		
+		WebElement selected = driver.findElement(By.xpath("//input[@type='radio'][@value='male']"));
+		selected.click();
+		System.out.println(selected.isSelected());   // To check if the radio button is selected or not - TRUE
+		
+		WebElement disabled = driver.findElement(By.xpath("//input[@id='submitButton']")); 
+		System.out.println(disabled.isEnabled());    // To check if the button is enabled or not - FALSE
+		
+		Thread.sleep(20000);                         // After 20 sec the button will be automatically enabled
+		WebElement enabled = driver.findElement(By.xpath("//input[@id='submitButton']")); 
+		System.out.println(enabled.isEnabled());     // To check if the button is enabled or not - TRUE
+		
+		Thread.sleep(2000);
+		WebElement displayed = driver.findElement(By.xpath("//div[@id='timeLeft']"));
+		System.out.println(displayed.isDisplayed()); // To check if the text is displaying or not - TRUE
+	}
+}
+		
+// isDisplayed() is the method used to verify presence of a web element within the webpage
+// isEnabled() is the method used to verify if the web element is enabled or disabled within the webpage
+// isSelected() is the method used to verify if the web element is selected or not. isSelected() method is pre-dominantly used with radiobutton ,dropdown & checkbox
