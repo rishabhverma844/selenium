@@ -1,0 +1,26 @@
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Timeout_PageLoad {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+
+		System.setProperty("webdriver.chrome.driver","/home/oye/eclipse-projects/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().pageLoadTimeout(2500, TimeUnit.MILLISECONDS); // The time that the script allots for a web page to be displayed
+		
+		try{
+			driver.get("https://rahulshettyacademy.com/seleniumPractise/#/");
+			}
+		catch(WebDriverException e){
+            System.out.println("WebDriverException Occured");
+            }
+		driver.quit();
+	}
+}
+
+/*  A pageload timeout is used on a webpage, so that the script will wait for X before throwing "WebDriverException" error if the webpage does not load within the specific amount of time
+*/
