@@ -1,0 +1,28 @@
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Timeout_SetScript {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+
+		System.setProperty("webdriver.chrome.driver","/home/oye/eclipse-projects/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS); // The time that the script allots for a web element to be displayed
+		
+		driver.get("https://rahulshettyacademy.com/seleniumPractise/#/");
+		
+		driver.findElement(By.xpath("//div[@class='products']//div[1]//div[3]//button[1]")).click();
+		driver.findElement(By.xpath("//a[@class='cart-icon']//img[contains(@class,'')]")).click();
+		driver.findElement(By.xpath("//button[contains(text(),'PROCEED TO CHECKOUT')]")).click();
+		Thread.sleep(3000); 
+		driver.findElement(By.xpath("//input[@placeholder='Enter promo code']")).sendKeys("rahulshettyacademy");
+		driver.findElement(By.xpath("//button[@class='promoBtn']")).click();
+		System.out.println(driver.findElement(By.cssSelector("span[class='promoInfo']")).getText()); //SetScript Timeout is used for this text to be appeared
+	}
+}
+
+/* A setscript timeout is used on asynchronous sripts, so that the script will wait for X seconds before throwing "Timed out waiting for async script result” error  if the script fails to load within the specific amount of time
+*/
