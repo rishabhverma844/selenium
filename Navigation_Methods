@@ -1,0 +1,26 @@
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Navigation_Methods {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver","/home/oye/eclipse-projects/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.get("http://seleniumpractise.blogspot.com/2017/07/multiple-window-examples.html");
+		
+		driver.navigate().to("https://rahulshettyacademy.com/seleniumPractise/#/"); // To navigate to another page
+		System.out.println(driver.getTitle());
+		
+		driver.navigate().back();                                                   // To go 1 page back 
+		System.out.println(driver.getTitle());
+		
+		driver.navigate().forward();                                                // To again go 1 page forward
+		System.out.println(driver.getTitle());
+		
+		Thread.sleep(3000);
+		driver.navigate().refresh();                                                // To refresh the current (last) page		
+	}
+}
+
+/* DIFFERENCE -> driver.get() returns VOID and driver.navigate.to() returns NAVIGATION || driver.navigate() stores browser history and cookies so we can use forward and backward button to navigate between the pages whereas driver.get() doesn't stores anything || driver.get() accepts only URL as input parameter and driver.navigate.to() accepts URL and STRING both as input parameter */
