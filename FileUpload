@@ -1,0 +1,25 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class FileUpload {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver","/home/oye/eclipse-projects/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.monsterindia.com/");
+		
+		driver.findElement(By.xpath("//a[@class='btn block resume-btn btn-orange mt20']")).click(); 
+		Thread.sleep(3000);
+		driver.findElement(By.id("file-upload")).sendKeys("/home/oye/Desktop/Rishabh_QA_2Years.pdf"); // Sendkeys is used to upload the file
+		Thread.sleep(4000);
+		driver.findElement(By.xpath("//input[@value='Submit']")).click();
+		
+		// Above is the way to upload a file on a popup and below is the way to upload a file on a webpage
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//a[text()='Remove']")).click();
+		Thread.sleep(4000);
+		driver.findElement(By.xpath("//input[@type='file']")).sendKeys("/home/oye/Desktop/Rishabh_QA_RPA.docx"); // FIleUpload works only when the tag="input" & type="file"
+	}
+}
