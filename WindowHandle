@@ -1,0 +1,39 @@
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WindowHandle {
+
+	public static void main(String[] args) throws Exception {
+
+		System.setProperty("webdriver.chrome.driver","/home/oye/eclipse-projects/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.get("https://www.hyrtutorials.com/p/window-handles-practice.html"); 
+		
+		String parentHandle = driver.getWindowHandle();
+		System.out.println("parent window handle is "+parentHandle);          // To print the parent handle 
+		driver.findElement(By.id("newWindowBtn")).click();                    // To click on a button of the parent window
+		
+		Set<String> childHandle = driver.getWindowHandles();                  // Set of String will store multiple unique handles
+		System.out.println("child window handle is "+childHandle);            // To print the child handle 
+		
+		for (String handle : childHandle) 
+		{
+			if(!handle.equals(parentHandle))                                    // If child handle NOT equals to parent handle then switch to child handle
+			{                                
+				driver.switchTo().window(handle);
+				driver.findElement(By.id("firstName")).sendKeys("Rishabh");       // To enter text in text box of the child window
+				Thread.sleep(2000);
+				driver.close();
+			}
+		}
+		driver.switchTo().window(parentHandle);                               // To switch back from child to parent window
+		driver.findElement(By.id("name")).sendKeys("Rishabh Parent Window");  // To enter text in text box of the parent window
+		Thread.sleep(2000);
+		driver.quit();
+	}
+}
