@@ -1,0 +1,31 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.Color;
+
+public class Color_Verify {
+
+	public static void main(String[] args) {
+		
+		System.setProperty("webdriver.chrome.driver","/home/oye/eclipse-projects/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.orangehrm.com/");
+		
+		WebElement button = driver.findElement(By.xpath("//a[@class='btn-orange contact-ohrm ']"));
+		String backColor = button.getCssValue("background-color"); // getCssValue is used to get the values of CSS according to attibute
+		System.out.println(backColor);                             // This will print the background color in RGBA (Red-Green-Blue-Alpha) format
+		
+		String HexBackColor = Color.fromString(backColor).asHex(); // Color is a class in selenium and asHex is used to convert the RGBA value to Hex
+		System.out.println(HexBackColor);                          // This will print the background color in Hex format
+		
+		if (HexBackColor.equals("#17a955"))                        // To Match the result of Hex Color with Our defined color
+		{
+			System.out.println("Color Matched Successfully");
+		}
+		else 
+		{
+			System.out.println("Color Matched Failed");
+		}
+	}
+}
