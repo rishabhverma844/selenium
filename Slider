@@ -1,0 +1,16 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Slider {
+
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver","/home/oye/eclipse-projects/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.snapdeal.com/products/mobiles-mobile-phones/");
+
+		Actions builer = new Actions(driver);
+		builer.dragAndDropBy(driver.findElement(By.xpath("//a[contains(@class,'left-handle')]")),101 ,0 ).perform(); //To detect the lower point of slider
+	}
+}
