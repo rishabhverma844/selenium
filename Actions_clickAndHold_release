@@ -1,0 +1,17 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Actions_clickAndHold_release {
+
+	public static void main(String[] args) {
+		
+		System.setProperty("webdriver.chrome.driver","/home/oye/eclipse-projects/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.get("http://uitestpractice.com/Students/actions");
+		
+		Actions builder = new Actions(driver);
+		builder.clickAndHold(driver.findElement(By.xpath("//li[text()='1']"))).release(driver.findElement(By.xpath("//li[text()='11']"))).build().perform();
+	}
+}
