@@ -1,0 +1,20 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Actions_contextClick {
+
+	public static void main(String[] args) {
+
+    System.setProperty("webdriver.chrome.driver","/home/oye/eclipse-projects/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://swisnl.github.io/jQuery-contextMenu/demo.html");
+		
+		Actions builder = new Actions(driver);
+		builder.contextClick(driver.findElement(By.xpath("//span[text()='right click me']"))).build().perform(); //Used to do right click
+		driver.findElement(By.xpath("//span[text()='Copy']")).click();
+		
+		System.out.println(driver.switchTo().alert().getText()); //To get the popup text
+	}
+}
