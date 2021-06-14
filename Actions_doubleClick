@@ -1,0 +1,18 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Actions_doubleClick {
+
+	public static void main(String[] args) {
+
+		System.setProperty("webdriver.chrome.driver","/Users/rishabhverma/Documents/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.get("http://demo.guru99.com/test/simple_context_menu.html");
+		
+		Actions builder = new Actions(driver);
+		builder.doubleClick(driver.findElement(By.xpath("//button[text()='Double-Click Me To See Alert']"))).perform(); //To double click on any element
+		System.out.println(driver.switchTo().alert().getText()); //To get the popup text
+	}
+}
