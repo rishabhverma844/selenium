@@ -1,0 +1,30 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+//import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Actions_dragAndDrop {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		System.setProperty("webdriver.chrome.driver","/Users/rishabhverma/Documents/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://demoqa.com/droppable/");
+		
+		Actions builder = new Actions(driver);
+		builder.dragAndDrop(driver.findElement(By.id("draggable")) , driver.findElement(By.id("droppable"))).build().perform();
+		Thread.sleep(2000);
+		System.out.println(driver.findElement(By.xpath("//p[text()='Dropped!']")).getText());
+		
+		// Drag and Drop can also be achieved using below method
+		
+		/*Actions builder = new Actions(driver);
+		WebElement sourceElement = driver.findElement(By.id("draggable"));
+		WebElement destinationElement = driver.findElement(By.id("droppable"));
+		
+		builder.clickAndHold(sourceElement).moveToElement(destinationElement).release().build().perform();
+		Thread.sleep(2000);
+		System.out.println(driver.findElement(By.xpath("//p[text()='Dropped!']")).getText());*/
+	}
+}
