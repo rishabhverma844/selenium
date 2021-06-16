@@ -1,0 +1,25 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Actions_moveToElement {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver","/Users/rishabhverma/Documents/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.get("http://automationpractice.com/index.php");
+		
+		Actions builder = new Actions (driver); //Actions is a class and builder is the object name
+		builder.moveToElement(driver.findElement(By.xpath("//a[@title='Women']"))).build().perform(); //moveToElement is used for Mouse Hover
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//a[@title='Blouses']")).click();
+		
+		builder.moveToElement(driver.findElement(By.xpath("//a[@title='Blouse']//img[@title='Blouse']"))).build().perform();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//a[@title='Add to cart']")).click();
+		Thread.sleep(3000);
+		System.out.println(driver.findElement(By.xpath("//h2[normalize-space()='Product successfully added to your shopping cart']")));
+	}
+}
