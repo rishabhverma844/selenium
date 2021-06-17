@@ -1,0 +1,32 @@
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class BrowserWindow_Methods {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver","/Users/rishabhverma/Documents/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://rahulshettyacademy.com/seleniumPractise/#/");
+		
+		driver.manage().window().fullscreen();                      // Browser's Menu Bar & and Windows's Task Bar is Not displayed
+		Thread.sleep(2000);
+		driver.manage().window().setPosition(new Point(-2000,0));   // Selenium don't have any built in method for minimizing browser window, so we will be using like this
+		Thread.sleep(2000);
+		driver.manage().window().maximize();                        // Browser's Menu Bar & and Windows's Task Bar is Displayed
+		
+		/*Point p = driver.manage().window().getPosition();
+		Dimension d = driver.manage().window().getSize();
+		driver.manage().window().setPosition(new Point((d.getHeight()-p.getX()), (d.getWidth()-p.getY())));*/
+		
+		Thread.sleep(3000);
+		System.out.println(driver.manage().window().getPosition()); // (88,27)
+		driver.manage().window().setPosition(new Point (400,200));  // setPosition is used to move the browser to specific point [Point is the return type]
+		
+		Thread.sleep(3000);
+		System.out.println(driver.manage().window().getSize());     // (901,1033)
+		driver.manage().window().setSize(new Dimension (300,300));  // setSize is used to modify the browser dimension [Dimension is the return type]
+	}
+}
