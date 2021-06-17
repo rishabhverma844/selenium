@@ -46,7 +46,7 @@ public class Frames {
 		}
 }
 
-/*                                     DIFFERENECE BETWEEN FRAME AND IFRAME (INLINE FRAME)
+/*                                     DIFFERENCE BETWEEN FRAME AND IFRAME (INLINE FRAME)
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
 A frame is used to divide a page into multiple sections, | An iFrame is used to embed the content of the external websites into the web page, |
