@@ -1,0 +1,54 @@
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Links_Broken {
+
+	public static void main(String[] args) throws InterruptedException, IOException  {
+				
+		System.setProperty("webdriver.chrome.driver","/Users/rishabhverma/Documents/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.snapdeal.com/");
+		
+		List<WebElement> linkList = driver.findElements(By.tagName("a")); //To fetch and store all the anchor tag
+		linkList.addAll(driver.findElements(By.tagName("img")));          //To fetch and store all the image tag
+		System.out.println("Total links are " +linkList.size()+ " which are present on this page"); //To display number of links with a and img tag
+		
+		List<WebElement> activeLink = new ArrayList<WebElement>();
+		for(int i=0; i<linkList.size(); i++)
+		{
+			if (linkList.get(i).getAttribute("href") != null && (!linkList.get(i).getAttribute("href").contains("javascript")))
+			{
+				activeLink.add(linkList.get(i));
+			}
+		}
+		System.out.println("Active links are " +activeLink.size()+ " which are present on this page"); //To display all the links of a and img tag with href attribute
+	
+		for (WebElement link : activeLink) 
+		{
+			String linkURL = link.getAttribute("href");
+			URL url = new URL(linkURL);
+			URLConnection urlConnection = url.openConnection();
+			HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
+			Thread.sleep(3000);
+			httpURLConnection.connect(); //To initiate the connection
+			
+			if(httpURLConnection.getResponseCode() != 200)
+			{
+				System.out.println(linkURL + " - " + httpURLConnection.getResponseCode() + " - " + httpURLConnection.getResponseMessage());
+			}
+			else 
+			{
+				System.err.println(linkURL + " - " + httpURLConnection.getResponseCode() + " - " + httpURLConnection.getResponseMessage());
+			}
+			httpURLConnection.disconnect(); //To disconnect the connection
+		}
+	}
+}
