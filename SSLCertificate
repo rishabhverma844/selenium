@@ -1,0 +1,25 @@
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+public class SSLCertificate {
+
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver","/Users/rishabhverma/Documents/chromedriver");
+		
+		DesiredCapabilities dc = new DesiredCapabilities(); // Global Profile
+		dc.setAcceptInsecureCerts(true);
+		
+		//Use the above 1 line or below 2 lines to bypass certificate 
+		dc.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
+		dc.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+		
+		ChromeOptions co = new ChromeOptions(); // Merging Global with Chrome Browser
+		co.merge(dc);
+		
+		WebDriver driver = new ChromeDriver(co);
+		driver.get("https://expired.badssl.com/");
+	}
+}
