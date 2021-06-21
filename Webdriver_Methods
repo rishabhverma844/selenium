@@ -1,0 +1,29 @@
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Webdriver_Methods {
+
+	public static void main(String[] args) {
+
+		System.setProperty("webdriver.chrome.driver","/Users/rishabhverma/Documents/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().fullscreen();         // Output - Full Screen
+		driver.get("https://www.salesforce.com/in/"); 
+		
+		/*driver.close();*/
+		System.out.println(driver.getClass());          // Output - class org.openqa.selenium.chrome.ChromeDriver 
+		System.out.println(driver.getCurrentUrl());     // Output - https://www.salesforce.com/in/ 
+		/*System.out.println(driver.getPageSource());*/ // Output - HTML source code 
+		System.out.println(driver.getTitle());          // Output - CRM Software: Cloud Computing Solutions For Every Business - Salesforce IN 
+		System.out.println(driver.getWindowHandle());   // Output - CDwindow-295A8627A049F38099A86E756E7D5FBB 
+		System.out.println(driver.getWindowHandles());  // Output - [CDwindow-295A8627A049F38099A86E756E7D5FBB,CDwindow-8C42FF52780C233D606A71C72B34AE94]
+		System.out.println(driver.hashCode());          // Output - 22004208 
+		
+		driver.manage().addCookie(new Cookie("chocolate","milkybar"));    // Output - To ADD a cookie
+		System.out.println(driver.manage().getCookieNamed("chocolate"));  // Output - To GET a cookie - chocolate=milkybar;
+		driver.manage().deleteCookieNamed("chocolate");                   // Output - To DELETE a cookie
+		
+		System.out.println(driver.getClass());          // Output - class org.openqa.selenium.chrome.ChromeDriver
+	}
+}
